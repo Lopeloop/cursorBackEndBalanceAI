@@ -52,32 +52,42 @@ ALTER TABLE answers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
 ALTER TABLE focus_sessions ENABLE ROW LEVEL SECURITY;
 
--- Users policies (using IF NOT EXISTS)
-CREATE POLICY IF NOT EXISTS "Users can view their own data" ON users
+-- Drop existing policies if they exist (to avoid conflicts)
+DROP POLICY IF EXISTS "Users can view their own data" ON users;
+DROP POLICY IF EXISTS "Users can insert their own data" ON users;
+DROP POLICY IF EXISTS "Users can view their own answers" ON answers;
+DROP POLICY IF EXISTS "Users can insert their own answers" ON answers;
+DROP POLICY IF EXISTS "Users can view their own reports" ON reports;
+DROP POLICY IF EXISTS "Users can insert their own reports" ON reports;
+DROP POLICY IF EXISTS "Users can view their own focus sessions" ON focus_sessions;
+DROP POLICY IF EXISTS "Users can insert their own focus sessions" ON focus_sessions;
+
+-- Users policies
+CREATE POLICY "Users can view their own data" ON users
     FOR SELECT USING (true);
 
-CREATE POLICY IF NOT EXISTS "Users can insert their own data" ON users
+CREATE POLICY "Users can insert their own data" ON users
     FOR INSERT WITH CHECK (true);
 
--- Answers policies (using IF NOT EXISTS)
-CREATE POLICY IF NOT EXISTS "Users can view their own answers" ON answers
+-- Answers policies
+CREATE POLICY "Users can view their own answers" ON answers
     FOR SELECT USING (true);
 
-CREATE POLICY IF NOT EXISTS "Users can insert their own answers" ON answers
+CREATE POLICY "Users can insert their own answers" ON answers
     FOR INSERT WITH CHECK (true);
 
--- Reports policies (using IF NOT EXISTS)
-CREATE POLICY IF NOT EXISTS "Users can view their own reports" ON reports
+-- Reports policies
+CREATE POLICY "Users can view their own reports" ON reports
     FOR SELECT USING (true);
 
-CREATE POLICY IF NOT EXISTS "Users can insert their own reports" ON reports
+CREATE POLICY "Users can insert their own reports" ON reports
     FOR INSERT WITH CHECK (true);
 
--- Focus sessions policies (using IF NOT EXISTS)
-CREATE POLICY IF NOT EXISTS "Users can view their own focus sessions" ON focus_sessions
+-- Focus sessions policies
+CREATE POLICY "Users can view their own focus sessions" ON focus_sessions
     FOR SELECT USING (true);
 
-CREATE POLICY IF NOT EXISTS "Users can insert their own focus sessions" ON focus_sessions
+CREATE POLICY "Users can insert their own focus sessions" ON focus_sessions
     FOR INSERT WITH CHECK (true);
 
 -- Functions for common operations
