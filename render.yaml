@@ -2,7 +2,7 @@ services:
   - type: web
     name: ember-balance-ai-backend
     env: node
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npm run build:render
     startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV
